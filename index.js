@@ -18,7 +18,7 @@ function link(lat, lon) {
   const latDec = conv(...lat)
   const lonDec = conv(...lon)
   console.log("Coordonnées:", latDec, lonDec)
-  if (map === "osm") return `http://www.openstreetmap.org/?mlat=${latDec}&mlon=${lonDec}&zoom=12`
+  if (map === "osm") return `https://www.openstreetmap.org/?mlat=${latDec}&mlon=${lonDec}&zoom=12`
   return `https://www.google.com/maps/place/${latDec},${lonDec}`
 }
 
