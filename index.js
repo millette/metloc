@@ -5,19 +5,22 @@ import fs from "node:fs"
 import JPEGDecoder from "jpg-stream/decoder.js"
 import open from "open"
 
+const fn = process.argv[2]
+const map = process.argv[3]?.toLocaleLowerCase() === "osm" ? "osm" : "gmap"
+
 function conv(deg, min, sec, dir) {
   dir = dir.toLowerCase()
-  const mul = (dir === 'n' || dir === 'e') ? 1 : -1
+  const mul = (dir === "n" || dir === "e") ? 1 : -1
   return mul * (deg + min / 60 + sec / 3600)
 }
 
 function link(lat, lon) {
   const latDec = conv(...lat)
   const lonDec = conv(...lon)
+  console.log("Coordonnées:", latDec, lonDec)
+  if (map === "osm") return `http://www.openstreetmap.org/?mlat=${latDec}&mlon=${lonDec}&zoom=12`
   return `https://www.google.com/maps/place/${latDec},${lonDec}`
 }
-
-const fn = process.argv[2]
 
 if (!fn) {
   console.error("Requis: chemin vers une image contenant des données gps.")
